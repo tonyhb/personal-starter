@@ -1,0 +1,9 @@
+package: gitlab.com/tonyhb/keepupdated
+import:
+- package: github.com/emicklei/go-restful
+  version: ^1.2.0
+- package: golang.org/x/net
+  subpackages:
+  - context
+- package: github.com/Sirupsen/logrus
+  version: ^0.10.0
