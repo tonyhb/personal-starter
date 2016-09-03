@@ -1,5 +1,9 @@
 package types
 
+import (
+	"time"
+)
+
 type Scan struct {
 	UUID      string
 	Name      string

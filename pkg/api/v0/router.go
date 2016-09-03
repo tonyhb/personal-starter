@@ -2,6 +2,7 @@ package v0
 
 import (
 	"gitlab.com/tonyhb/keepupdated/pkg/api/apilib"
+	"gitlab.com/tonyhb/keepupdated/pkg/manager"
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/emicklei/go-restful"
@@ -9,15 +10,18 @@ import (
 
 type V0 struct {
 	log *log.Logger
+	mgr manager.Manager
 }
 
 type Opts struct {
 	Log *log.Logger
+	Mgr manager.Manager
 }
 
 func New(opts Opts) *V0 {
 	return &V0{
 		log: opts.Log,
+		mgr: opts.Mgr,
 	}
 }
 
@@ -30,6 +34,7 @@ func (v *V0) AddRoutes(c *restful.Container) {
 	apilib.AddRoutes(
 		ws,
 		v.LoginRoute(),
+		v.RegisterRoute(),
 	)
 
 	c.Add(ws)

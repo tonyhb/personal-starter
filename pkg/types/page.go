@@ -1,5 +1,11 @@
 package types
 
+import (
+	"time"
+
+	"gitlab.com/tonyhb/keepupdated/pkg/area"
+)
+
 type Page struct {
 	UUID      string
 	AccountID int

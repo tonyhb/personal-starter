@@ -1,5 +1,9 @@
 package types
 
+import (
+	"time"
+)
+
 // Account represents
 type Account struct {
 	ID             int

@@ -7,3 +7,12 @@ import:
   - context
 - package: github.com/Sirupsen/logrus
   version: ^0.10.0
+- package: github.com/tonyhb/govalidate
+- package: github.com/SermoDigital/jose
+  version: ^1.0.0
+  subpackages:
+  - jws
+  - crypto
+- package: golang.org/x/crypto
+  subpackages:
+  - bcrypt

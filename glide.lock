@@ -1,12 +1,41 @@
-hash: 68e773f27a86395daba724faf2c10169825f6adfcfb7af5d26a2299426411a43
-updated: 2016-09-03T10:23:19.118690246-07:00
+hash: 995845a5259cdf18d8e0c1a0251c9ad000615c136f3901c623c2d4ef5c61147c
+updated: 2016-09-03T19:12:14.142278397-07:00
 imports:
 - name: github.com/emicklei/go-restful
   version: 777bb3f19bcafe2575ffb2a3e46af92509ae9594
   subpackages:
   - log
+- name: github.com/SermoDigital/jose
+  version: 5e081777ca1d44c5880da06ec781682e7e9449b1
+  subpackages:
+  - crypto
+  - jws
+  - jwt
 - name: github.com/Sirupsen/logrus
   version: 4b6ea7319e214d98c938f12692336f7ca9348d6b
+- name: github.com/tonyhb/govalidate
+  version: 6e3c0a7f57e82425de1b2c848a8ae5a15a6d0178
+  subpackages:
+  - helper
+  - rules
+  - rules/alpha
+  - rules/alphanumeric
+  - rules/email
+  - rules/greaterthan
+  - rules/length
+  - rules/lessthan
+  - rules/maxlength
+  - rules/minlength
+  - rules/notempty
+  - rules/notzero
+  - rules/notzerotime
+  - rules/regexp
+  - rules/url
+  - rules/uuid
+- name: golang.org/x/crypto
+  version: 9e590154d2353f3f5e1b24da7275686040dcf491
+  subpackages:
+  - bcrypt
 - name: golang.org/x/net
   version: 1358eff22f0dd0c54fc521042cc607f6ff4b531a
   subpackages:
