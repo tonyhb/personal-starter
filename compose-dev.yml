@@ -1,0 +1,32 @@
+version: '2'
+networks:
+    internal:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 10.17.0.0/16
+services:
+    api:
+        build:
+            context: ./cmd/api
+            dockerfile: Dockerfile
+        networks:
+            - internal
+        ports:
+            - "8888:8888"
+        environment:
+            - PORT=8888
+            - LOG_LEVEL=debug
+        command:
+            - api
+    proxy:
+        image: nginx:1.9.14
+        volumes:
+            - "$PWD/cmd/proxy/nginx.conf:/etc/nginx/nginx.conf"
+        networks:
+            - internal
+            - default
+        ports:
+            - "80:80"
+            - "443:443"

@@ -1,6 +1,8 @@
-hash: 995845a5259cdf18d8e0c1a0251c9ad000615c136f3901c623c2d4ef5c61147c
-updated: 2016-09-03T19:12:14.142278397-07:00
+hash: 6d91691e4a3d7a122066b571041ede2134565976cfe6f36b2d25e5a0d2fca23f
+updated: 2016-09-04T10:19:59.201424581-07:00
 imports:
+- name: github.com/didip/tollbooth
+  version: 014e5eb6aeee6655b4c5ca0864a5c92f85c0a014
 - name: github.com/emicklei/go-restful
   version: 777bb3f19bcafe2575ffb2a3e46af92509ae9594
   subpackages:
@@ -36,6 +38,7 @@ imports:
   version: 9e590154d2353f3f5e1b24da7275686040dcf491
   subpackages:
   - bcrypt
+  - blowfish
 - name: golang.org/x/net
   version: 1358eff22f0dd0c54fc521042cc607f6ff4b531a
   subpackages:
