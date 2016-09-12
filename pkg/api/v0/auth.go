@@ -7,6 +7,8 @@ import (
 	"time"
 
 	"gitlab.com/tonyhb/keepupdated/pkg/api/apilib"
+	"gitlab.com/tonyhb/keepupdated/pkg/api/auth"
+	"gitlab.com/tonyhb/keepupdated/pkg/api/v0/errors"
 	"gitlab.com/tonyhb/keepupdated/pkg/api/v0/forms"
 	"gitlab.com/tonyhb/keepupdated/pkg/api/v0/responses"
 
@@ -32,24 +34,40 @@ func (v *V0) RegisterRoute() apilib.Route {
 		Method:  "POST",
 		Handler: v.Register,
 		Returns: apilib.Returns{
-			Status: http.StatusOK,
+			Status: http.StatusCreated,
 			Data:   responses.JWT{},
 		},
 	}
 }
 
-func (v *V0) Login(ctx context.Context, req *restful.Request, w *restful.Response) {
-	// TODO: auth the user via username/password
-	w.Write([]byte("lol"))
+func (v *V0) Login(ctx context.Context, req *restful.Request, w *restful.Response) interface{} {
+	data := new(forms.EmailPassAuth)
+	if err := req.ReadEntity(data); err != nil {
+		return v.WrapError(err)
+	}
+
+	u, err := v.mgr.UserByEmail(data.Email)
+	if err != nil {
+		return errors.ErrInvalidCredentials
+	}
+	err = u.CheckPassword(data.Password)
+	if err != nil {
+		return errors.ErrInvalidCredentials
+	}
+
+	jwt, _ := auth.MakeJWT(strconv.Itoa(u.ID), "keepupdated.com", time.Now().Add(24*time.Hour))
+	return responses.MakeJWT(jwt)
 }
 
-func (v *V0) Register(ctx context.Context, req *restful.Request, w *restful.Response) {
+func (v *V0) Register(ctx context.Context, req *restful.Request, w *restful.Response) interface{} {
 	register := new(forms.Register)
 	if err := req.ReadEntity(register); err != nil {
-		return
+		return v.WrapError(err)
 	}
 	if err := validate.Run(register); err != nil {
-		return
+		// TODO: make a function in the errors package to wrap and format
+		// validation errors from govalidate
+		return nil
 	}
 
 	// create a new account and user
@@ -57,20 +75,19 @@ func (v *V0) Register(ctx context.Context, req *restful.Request, w *restful.Resp
 	user := register.User()
 
 	if err := v.mgr.CreateAccount(acct); err != nil {
-		return
+		return v.WrapError(err)
 	}
 	user.AccountID = acct.ID
 	if err := v.mgr.CreateUser(user); err != nil {
-		return
+		return v.WrapError(err)
 	}
 
-	jwt, _ := apilib.MakeJWT(strconv.Itoa(user.ID), "keepupdated.com", time.Now().Add(24*time.Hour))
+	jwt, _ := auth.MakeJWT(strconv.Itoa(user.ID), "keepupdated.com", time.Now().Add(24*time.Hour))
 
 	// TODO: kafka job to send a welcome email
-	// TODO: create JWT and log in user
-	w.WriteEntity(responses.Register{
+	return responses.Register{
 		User:    responses.MakeUser(*user),
 		Account: responses.MakeAccount(*acct),
 		JWT:     responses.MakeJWT(jwt),
-	})
+	}
 }

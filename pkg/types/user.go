@@ -22,3 +22,7 @@ func (u *User) SetPassword(to string) error {
 	u.PasswordHash, err = bcrypt.GenerateFromPassword([]byte(to), bcrypt.DefaultCost)
 	return err
 }
+
+func (u *User) CheckPassword(pw string) error {
+	return bcrypt.CompareHashAndPassword(u.PasswordHash, []byte(pw))
+}

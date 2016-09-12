@@ -41,3 +41,8 @@ func (r Register) User() *types.User {
 	user.SetPassword(r.Password)
 	return user
 }
+
+type EmailPassAuth struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}

@@ -2,6 +2,7 @@ package v0
 
 import (
 	"gitlab.com/tonyhb/keepupdated/pkg/api/apilib"
+	"gitlab.com/tonyhb/keepupdated/pkg/api/v0/errors"
 	"gitlab.com/tonyhb/keepupdated/pkg/manager"
 
 	log "github.com/Sirupsen/logrus"
@@ -38,4 +39,12 @@ func (v *V0) AddRoutes(c *restful.Container) {
 	)
 
 	c.Add(ws)
+}
+
+func (v *V0) WrapError(err error) errors.APIError {
+	v.log.WithField("error", err).Error("error processing API call")
+	return errors.APIError{
+		Status:  500,
+		Message: "Something bad happened",
+	}
 }

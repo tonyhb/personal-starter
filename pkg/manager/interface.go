@@ -5,9 +5,17 @@ import (
 )
 
 type Manager interface {
+	AccountManager
+	UserManager
+}
+
+type AccountManager interface {
 	CreateAccount(*types.Account) error
 	UpdateAccount(*types.Account) error
+}
 
+type UserManager interface {
 	CreateUser(*types.User) error
 	UpdateUser(*types.User) error
+	UserByEmail(string) (*types.User, error)
 }

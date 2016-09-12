@@ -4,6 +4,8 @@ import (
 	"time"
 
 	"gitlab.com/tonyhb/keepupdated/pkg/types"
+
+	"github.com/emicklei/go-restful"
 )
 
 type JWT struct {
@@ -69,4 +71,8 @@ type Register struct {
 	User    User    `json:"user"`
 	Account Account `json:"account"`
 	JWT     JWT     `json:"jwt"`
+}
+
+func (r Register) Write(w *restful.Response) {
+	w.WriteHeaderAndEntity(201, r)
 }
