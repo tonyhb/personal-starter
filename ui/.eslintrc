@@ -1,0 +1,12 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-curly-spacing": 0,
+  },
+  "globals": {
+	"window": true,
+  	"document": true,
+  }
+}
