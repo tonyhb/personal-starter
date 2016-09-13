@@ -33,11 +33,19 @@ func (m *userManager) UpdateUser(user *types.User) error {
 	return nil
 }
 
+func (m *userManager) UserByID(id int) (*types.User, error) {
+	u, ok := m.Users[id]
+	if !ok {
+		return nil, fmt.Errorf("user not found")
+	}
+	return u, nil
+}
+
 func (m *userManager) UserByEmail(email string) (*types.User, error) {
 	for _, u := range m.Users {
 		if u.Email == email {
 			return u, nil
 		}
 	}
-	return nil, fmt.Errorf("email not found")
+	return nil, fmt.Errorf("user not found")
 }

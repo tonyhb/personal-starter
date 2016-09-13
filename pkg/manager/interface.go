@@ -17,5 +17,6 @@ type AccountManager interface {
 type UserManager interface {
 	CreateUser(*types.User) error
 	UpdateUser(*types.User) error
+	UserByID(int) (*types.User, error)
 	UserByEmail(string) (*types.User, error)
 }

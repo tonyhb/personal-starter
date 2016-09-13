@@ -1,10 +1,10 @@
 package apilib
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/emicklei/go-restful"
-	"golang.org/x/net/context"
 )
 
 // Handler represents a modified restful.RouteFunction which accepts
