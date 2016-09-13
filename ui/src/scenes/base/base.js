@@ -1,14 +1,20 @@
 import React from 'react';
+import css from 'react-css-modules';
+import { Link } from 'react-router';
+import styles from './base.css';
 
-const Base = ({ children }) => (
+const UnstyledBase = ({ children }) => (
   <div>
-    <h1>LOL</h1>
+    <div styleName="header">
+      <Link to='/' className='dashboard'>Dashboard</Link>
+    </div>
     { children }
   </div>
 );
 
-Base.propTypes = {
+UnstyledBase.propTypes = {
   children: React.PropTypes.node,
 };
 
-export default Base;
+export default css(styles)(UnstyledBase);
+export { UnstyledBase };

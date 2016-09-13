@@ -14,6 +14,7 @@
     "babel-eslint": "6.1.2",
     "babel-loader": "6.2.5",
     "babel-plugin-transform-class-properties": "6.11.5",
+    "babel-plugin-transform-decorators-legacy": "1.3.4",
     "babel-preset-es2015": "6.14.0",
     "babel-preset-react": "6.11.1",
     "babel-preset-stage-0": "6.5.0",
@@ -26,8 +27,11 @@
     "eslint-plugin-react": "6.2.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "postcss": "5.2.0",
+    "postcss-assets": "4.1.0",
     "postcss-loader": "0.13.0",
+    "postcss-nested": "1.0.0",
     "postcss-reporter": "1.4.1",
+    "postcss-svgo": "2.1.4",
     "react-hot-loader": "3.0.0-beta.3",
     "style-loader": "0.13.1",
     "stylelint": "7.2.0",
@@ -36,14 +40,15 @@
     "webpack-dev-server": "2.1.0-beta.4"
   },
   "dependencies": {
+    "lost": "7.1.0",
     "react": "15.3.1",
     "react-css-modules": "3.7.10",
     "react-dom": "15.3.1",
     "react-redux": "4.4.5",
-    "react-router": "2.8.0",
+    "react-router": "4.0.0-alpha.3",
     "redux": "3.6.0",
     "redux-form": "6.0.2",
     "sanitize.css": "4.1.0",
-    "tectonic": "1.1.1"
+    "tectonic": "1.1.8"
   }
 }

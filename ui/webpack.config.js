@@ -9,7 +9,7 @@ const isProd = nodeEnv === 'production';
 const stylelint = require('stylelint');
 
 module.exports = {
-  devtool: isProd ? 'hidden-source-map' : 'cheap-eval-source-map',
+  devtool: isProd ? 'hidden-source-map' : 'eval',
   context: __dirname,
   entry: {
     app: ['./src/index.js'],
@@ -18,6 +18,15 @@ module.exports = {
     path: path.join(__dirname, './build'),
     publicPath: '/assets/',
     filename: 'app.js'
+  },
+  devServer: {
+    hot: true,
+    contentBase: './build/',
+    publicPath: 'https://localhost:8080/assets/',
+    hot: true,
+    progress: true,
+    historyApiFallback: true,
+    stats: { chunks: false },
   },
   module: {
     preLoaders: [
@@ -43,7 +52,7 @@ module.exports = {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style',
-          loader: 'css?modules',
+          loader: 'css?modules!postcss',
         })
       },
     ],
@@ -56,7 +65,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("styles.css"),
+    new ExtractTextPlugin({
+      filename: 'styles.css',
+      allChunks: true,
+    }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false,
@@ -77,16 +89,22 @@ module.exports = {
       sourceMap: false
     }),
   ],
-  devServer: {
-    hot: true,
-    contentBase: './build/',
-    publicPath: '/assets/',
-  },
   postcss: () => [
-    stylelint(require('stylelint-config-standard')),
+    stylelint({
+      "extends": "stylelint-config-standard",
+      "rules": {
+        "selector-pseudo-class-no-unknown": [true, { ignorePseudoClasses: ["global"] }],
+        "number-leading-zero": ["never"],
+      }
+    }),
     require("postcss-reporter")({
       clearMessages: true,
-      throwError: true,
     }),
+    require("postcss-nested"),
+    require('postcss-assets')({
+      loadPaths: ['./build/img', './build/svg'],
+    }),
+    require('postcss-svgo')(),
+    require('lost'),
   ],
 };

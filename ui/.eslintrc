@@ -4,6 +4,9 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-curly-spacing": 0,
+    "react/prefer-stateless-function": [1, { "ignorePureComponents": true }],
+    "jsx-quotes": 0,
+    "no-debugger": 1,
   },
   "globals": {
 	"window": true,

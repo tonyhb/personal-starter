@@ -9,4 +9,7 @@ config.plugins.push(new webpack.HotModuleReplacementPlugin());
 // And finally, add 'react-hot-loader/webpack' to JS loaders
 config.module.loaders[0].loaders.push('react-hot-loader/webpack');
 
-new WebpackDevServer(webpack(config), Object.assign({}, config.devServer, { hot: true })).listen(8080);
+new WebpackDevServer(
+  webpack(config),
+  Object.assign({}, config.devServer)
+).listen(8080);
