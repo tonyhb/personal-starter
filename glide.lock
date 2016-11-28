@@ -1,24 +1,25 @@
-hash: 6d91691e4a3d7a122066b571041ede2134565976cfe6f36b2d25e5a0d2fca23f
-updated: 2016-09-04T10:19:59.201424581-07:00
+hash: 95592956a1bdf07e34edac54ae00f82474befeff7794efe9e023f9fb541e5a90
+updated: 2016-11-27T19:59:56.718468666-08:00
 imports:
-- name: github.com/didip/tollbooth
-  version: 014e5eb6aeee6655b4c5ca0864a5c92f85c0a014
 - name: github.com/emicklei/go-restful
   version: 777bb3f19bcafe2575ffb2a3e46af92509ae9594
   subpackages:
   - log
-- name: github.com/SermoDigital/jose
-  version: 5e081777ca1d44c5880da06ec781682e7e9449b1
+- name: github.com/opentracing/opentracing-go
+  version: 0c3154a3c2ce79d3271985848659870599dfb77c
   subpackages:
-  - crypto
+  - log
+- name: github.com/SermoDigital/jose
+  version: 389fea327ef076853db8fae03a0f38e30e6092ab
+  subpackages:
   - jws
+  - crypto
   - jwt
 - name: github.com/Sirupsen/logrus
-  version: 4b6ea7319e214d98c938f12692336f7ca9348d6b
+  version: d26492970760ca5d33129d2d799e34be5c4782eb
 - name: github.com/tonyhb/govalidate
   version: 6e3c0a7f57e82425de1b2c848a8ae5a15a6d0178
   subpackages:
-  - helper
   - rules
   - rules/alpha
   - rules/alphanumeric
@@ -34,17 +35,14 @@ imports:
   - rules/regexp
   - rules/url
   - rules/uuid
+  - helper
 - name: golang.org/x/crypto
-  version: 9e590154d2353f3f5e1b24da7275686040dcf491
+  version: b8e7895fea88517e9b04aab7ceed6646faaee76b
   subpackages:
   - bcrypt
   - blowfish
 - name: golang.org/x/net
-  version: 1358eff22f0dd0c54fc521042cc607f6ff4b531a
+  version: b8e7895fea88517e9b04aab7ceed6646faaee76b
   subpackages:
   - context
-- name: golang.org/x/sys
-  version: a646d33e2ee3172a661fc09bca23bb4889a41bc8
-  subpackages:
-  - unix
 testImports: []

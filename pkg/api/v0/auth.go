@@ -18,9 +18,10 @@ import (
 
 func (v *V0) LoginRoute() apilib.Route {
 	return apilib.Route{
-		Path:    "/login",
-		Method:  "POST",
-		Handler: v.Login,
+		Operation: "login",
+		Path:      "/login",
+		Method:    "POST",
+		Handler:   v.Login,
 		Returns: apilib.Returns{
 			Status: http.StatusOK,
 			Data:   responses.JWT{},
@@ -30,9 +31,10 @@ func (v *V0) LoginRoute() apilib.Route {
 
 func (v *V0) RegisterRoute() apilib.Route {
 	return apilib.Route{
-		Path:    "/register",
-		Method:  "POST",
-		Handler: v.Register,
+		Operation: "register",
+		Path:      "/register",
+		Method:    "POST",
+		Handler:   v.Register,
 		Returns: apilib.Returns{
 			Status: http.StatusCreated,
 			Data:   responses.JWT{},
@@ -59,6 +61,7 @@ func (v *V0) Login(ctx context.Context, req *restful.Request, w *restful.Respons
 	return responses.MakeJWT(jwt)
 }
 
+// Register attempts to create a new account from given post data
 func (v *V0) Register(ctx context.Context, req *restful.Request, w *restful.Response) interface{} {
 	register := new(forms.Register)
 	if err := req.ReadEntity(register); err != nil {

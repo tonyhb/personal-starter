@@ -4,9 +4,11 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Sirupsen/logrus"
 	"gitlab.com/tonyhb/keepupdated/pkg/api"
 	"gitlab.com/tonyhb/keepupdated/pkg/manager/inmemory"
+
+	"github.com/Sirupsen/logrus"
+	"github.com/opentracing/opentracing-go"
 )
 
 const (
@@ -16,9 +18,12 @@ const (
 
 var (
 	port, logFormat, logLevel string
+	tracer                    opentracing.Tracer
 )
 
 func init() {
+	tracer = opentracing.NoopTracer{}
+
 	if port = os.Getenv("PORT"); port == "" {
 		port = defaultPort
 	}
@@ -33,12 +38,13 @@ func main() {
 		panic(err)
 	}
 
-	api := api.New(api.Opts{
-		Log: log,
-		Mgr: inmemory.New(),
+	handler := api.New(api.Opts{
+		Mgr:    inmemory.New(),
+		Tracer: tracer,
+		Logger: log,
 	})
 	log.WithField("port", port).Info("starting server")
-	http.ListenAndServe(":"+port, api.Handler())
+	http.ListenAndServe(":"+port, handler)
 }
 
 func getLogger() (*logrus.Logger, error) {

@@ -3,43 +3,35 @@ package api
 import (
 	"net/http"
 
+	"gitlab.com/tonyhb/keepupdated/pkg/api/apilib"
 	"gitlab.com/tonyhb/keepupdated/pkg/api/v0"
 	"gitlab.com/tonyhb/keepupdated/pkg/manager"
 
-	log "github.com/Sirupsen/logrus"
-	"github.com/emicklei/go-restful"
+	"github.com/Sirupsen/logrus"
+	"github.com/opentracing/opentracing-go"
 )
 
-func New(opts Opts) *api {
-	api := &api{
-		container: restful.NewContainer(),
-		log:       opts.Log,
-		mgr:       opts.Mgr,
-	}
+func New(opts Opts) http.Handler {
+	// Create a new apilib.Router, which handles the restful container,
+	// middleware, and context management for the entire API suite.
+	router := apilib.NewRouter(apilib.Opts{
+		Tracer: opts.Tracer,
+		Logger: opts.Logger,
+	})
 
 	// Add V0 routes
 	v0.New(v0.Opts{
-		Log: opts.Log,
-		Mgr: opts.Mgr,
-	}).AddRoutes(api.container)
+		Mgr:    opts.Mgr,
+		Logger: opts.Logger,
+	}).AddRoutes(router)
 
-	return api
+	return router.Handler()
 }
 
 // Opts represents configuration and initialization options for a new API
 // service.
 type Opts struct {
-	Log *log.Logger
-	Mgr manager.Manager
-}
-
-// api is the parent container for creating a cascading KU API service
-type api struct {
-	container *restful.Container
-	log       *log.Logger
-	mgr       manager.Manager
-}
-
-func (a *api) Handler() http.Handler {
-	return a.container
+	Mgr    manager.Manager
+	Tracer opentracing.Tracer
+	Logger *logrus.Logger
 }

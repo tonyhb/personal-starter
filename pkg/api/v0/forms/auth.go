@@ -17,8 +17,6 @@ func (r Register) Account() *types.Account {
 	}
 
 	switch r.Plan {
-	case "free":
-		acct.Features = types.Free
 	case "starter":
 		acct.Features = types.Starter
 	case "pro":
