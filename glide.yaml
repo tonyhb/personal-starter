@@ -18,3 +18,5 @@ import:
   version: ^1.0.0
 - package: github.com/Sirupsen/logrus
   version: ^0.11.0
+- package: github.com/google/uuid
+  version: 064e2069ce9c359c118179501254f67d7d37ba24

@@ -1,10 +1,12 @@
-hash: 95592956a1bdf07e34edac54ae00f82474befeff7794efe9e023f9fb541e5a90
-updated: 2016-11-27T19:59:56.718468666-08:00
+hash: 38e400358e2c3be46f6ab00c0b30da7594a7055d33c255e08b5fb7aeef260391
+updated: 2016-11-28T20:44:20.752708693-08:00
 imports:
 - name: github.com/emicklei/go-restful
   version: 777bb3f19bcafe2575ffb2a3e46af92509ae9594
   subpackages:
   - log
+- name: github.com/google/uuid
+  version: 064e2069ce9c359c118179501254f67d7d37ba24
 - name: github.com/opentracing/opentracing-go
   version: 0c3154a3c2ce79d3271985848659870599dfb77c
   subpackages:
@@ -37,12 +39,16 @@ imports:
   - rules/uuid
   - helper
 - name: golang.org/x/crypto
-  version: b8e7895fea88517e9b04aab7ceed6646faaee76b
+  version: 9763a7a817c1bd7e42a24025a5d24e9d17350b57
   subpackages:
   - bcrypt
   - blowfish
 - name: golang.org/x/net
-  version: b8e7895fea88517e9b04aab7ceed6646faaee76b
+  version: 9763a7a817c1bd7e42a24025a5d24e9d17350b57
   subpackages:
   - context
+- name: golang.org/x/sys
+  version: 9763a7a817c1bd7e42a24025a5d24e9d17350b57
+  subpackages:
+  - unix
 testImports: []

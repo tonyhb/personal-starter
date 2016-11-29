@@ -1,9 +1,9 @@
 package inmemory
 
 import (
-	"fmt"
 	"time"
 
+	"gitlab.com/tonyhb/keepupdated/pkg/manager"
 	"gitlab.com/tonyhb/keepupdated/pkg/types"
 )
 
@@ -27,7 +27,7 @@ func (m *userManager) CreateUser(user *types.User) error {
 
 func (m *userManager) UpdateUser(user *types.User) error {
 	if _, ok := m.Users[user.ID]; !ok {
-		return fmt.Errorf("user with id %d does not exist", user.ID)
+		return manager.ErrUserNotFound
 	}
 	m.Users[user.ID] = user
 	return nil
@@ -36,7 +36,7 @@ func (m *userManager) UpdateUser(user *types.User) error {
 func (m *userManager) UserByID(id int) (*types.User, error) {
 	u, ok := m.Users[id]
 	if !ok {
-		return nil, fmt.Errorf("user not found")
+		return nil, manager.ErrUserNotFound
 	}
 	return u, nil
 }
@@ -47,5 +47,5 @@ func (m *userManager) UserByEmail(email string) (*types.User, error) {
 			return u, nil
 		}
 	}
-	return nil, fmt.Errorf("user not found")
+	return nil, manager.ErrUserNotFound
 }

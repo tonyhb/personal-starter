@@ -1,9 +1,9 @@
 package inmemory
 
 import (
-	"fmt"
 	"time"
 
+	"gitlab.com/tonyhb/keepupdated/pkg/manager"
 	"gitlab.com/tonyhb/keepupdated/pkg/types"
 )
 
@@ -27,8 +27,15 @@ func (m *accountManager) CreateAccount(acct *types.Account) error {
 
 func (m *accountManager) UpdateAccount(acct *types.Account) error {
 	if _, ok := m.Accounts[acct.ID]; !ok {
-		return fmt.Errorf("account with id %d does not exist", acct.ID)
+		return manager.ErrAccountNotFound
 	}
 	m.Accounts[acct.ID] = acct
 	return nil
+}
+
+func (m *accountManager) AccountByID(id int) (*types.Account, error) {
+	if _, ok := m.Accounts[id]; !ok {
+		return nil, manager.ErrAccountNotFound
+	}
+	return m.Accounts[id], nil
 }

@@ -9,11 +9,13 @@ import (
 )
 
 type JWT struct {
-	Token []byte `json:"token"`
+	// If token were []byte this would automatically be base64 encoded by
+	// go-restful's WriteEntity call.
+	Token string `json:"token"`
 }
 
 func MakeJWT(jwt []byte) JWT {
-	return JWT{jwt}
+	return JWT{string(jwt)}
 }
 
 type Account struct {

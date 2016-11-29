@@ -5,10 +5,10 @@ import (
 )
 
 type Register struct {
-	StripeID string `validate:"NotEmpty"`
-	Plan     string `validate:"NotEmpty"`
-	Email    string `validate:"NotEmpty"`
-	Password string `validate:"NotEmpty"`
+	StripeID string `json:"stripeId" validate:"NotEmpty"`
+	Plan     string `json:"plan"     validate:"NotEmpty"`
+	Email    string `json:"email"    validate:"NotEmpty"`
+	Password string `json:"password" validate:"NotEmpty"`
 }
 
 func (r Register) Account() *types.Account {

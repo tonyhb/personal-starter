@@ -28,9 +28,9 @@ func MakeJWT(userID, issuer string, expiry time.Time) ([]byte, error) {
 	claims.SetSubject(userID)
 	claims.SetIssuer(issuer)
 
-	token := jws.NewJWT(claims, crypto.SigningMethodHS512)
+	token := jws.New(claims, crypto.SigningMethodHS512)
 	// TODO: replace password here
-	byt, err := token.Serialize([]byte("replace-with-password-from-vault-21637wdsdb"))
+	byt, err := token.Compact([]byte("replace-with-password-from-vault-21637wdsdb"))
 	return byt, err
 }
 

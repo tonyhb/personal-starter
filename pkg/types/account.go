@@ -4,6 +4,11 @@ import (
 	"time"
 )
 
+const (
+	StatusOK           = "ok"
+	StatusBillingError = "billingError"
+)
+
 // Account represents
 type Account struct {
 	ID             int
@@ -16,8 +21,14 @@ type Account struct {
 	CompanyZip     string
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
-	CancelledAt    time.Time
+
+	// Status is an enum which represents the standing of this account
+	Status string
 
 	Features
 	// TODO: branding
+}
+
+func (a Account) IsActive() bool {
+	return a.Status == StatusOK
 }

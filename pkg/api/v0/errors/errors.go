@@ -25,4 +25,8 @@ var (
 		Message: "Invalid authentication credentials",
 		Status:  401,
 	}
+	ErrInactiveAccount = APIError{
+		Message: "Your account is inactive. Please update your billing credentials or speak with us",
+		Status:  400,
+	}
 )

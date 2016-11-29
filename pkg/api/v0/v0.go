@@ -36,13 +36,15 @@ func (v *V0) AddRoutes(router *apilib.Router) {
 		ws,
 		v.LoginRoute(),
 		v.RegisterRoute(),
+		v.CreatePageRoute(),
 	)
 }
 
-func (v *V0) WrapError(err error) errors.APIError {
+func (v *V0) WrapError(err error, status int) errors.APIError {
 	v.log.WithField("error", err).Error("error processing API call")
 	return errors.APIError{
-		Status:  500,
-		Message: "Something bad happened",
+		Status:  status,
+		Message: "something bad happened",
+		Detail:  err,
 	}
 }
