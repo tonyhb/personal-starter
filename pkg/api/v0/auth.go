@@ -59,7 +59,7 @@ func (v *V0) Login(ctx context.Context, req *restful.Request, w *restful.Respons
 		return errors.ErrInvalidCredentials
 	}
 
-	jwt, _ := auth.MakeJWT(strconv.Itoa(u.ID), "keepupdated.com", time.Now().Add(24*time.Hour))
+	jwt, _ := auth.MakeJWT(strconv.Itoa(u.ID), req.Request.URL.Host, time.Now().Add(24*time.Hour))
 	return responses.MakeJWT(jwt)
 }
 
@@ -87,7 +87,7 @@ func (v *V0) Register(ctx context.Context, req *restful.Request, w *restful.Resp
 		return v.WrapError(err, http.StatusInternalServerError)
 	}
 
-	jwt, _ := auth.MakeJWT(strconv.Itoa(user.ID), "keepupdated.com", time.Now().Add(24*time.Hour))
+	jwt, _ := auth.MakeJWT(strconv.Itoa(user.ID), req.Request.URL.Host, time.Now().Add(24*time.Hour))
 
 	// TODO: kafka job to send a welcome email
 	return responses.Register{

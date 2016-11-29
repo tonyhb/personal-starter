@@ -17,7 +17,7 @@ var (
 )
 
 // MakeJWT creates a JWT to authroize a given user ID for the specific
-// brand of KeepUpdated (as specified by the "audience" string).
+// domain of the site (the 'iss' claim)
 //
 // The issuer string is the domain name in which the user logged in; this is
 // used to ensure the domain matches each time the JWT is used.
