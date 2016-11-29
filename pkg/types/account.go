@@ -5,7 +5,6 @@ import (
 )
 
 const (
-	StatusOK           = "ok"
 	StatusBillingError = "billingError"
 )
 
@@ -30,5 +29,5 @@ type Account struct {
 }
 
 func (a Account) IsActive() bool {
-	return a.Status == StatusOK
+	return a.Status != StatusBillingError
 }

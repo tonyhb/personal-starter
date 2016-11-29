@@ -50,7 +50,7 @@ func (v *V0) Login(ctx context.Context, req *restful.Request, w *restful.Respons
 		return v.WrapError(err, http.StatusBadRequest)
 	}
 
-	u, err := v.mgr.UserByEmail(data.Email)
+	u, err := v.mgr.UserByEmail(ctx, data.Email)
 	if err != nil {
 		return errors.ErrInvalidCredentials
 	}
@@ -79,11 +79,11 @@ func (v *V0) Register(ctx context.Context, req *restful.Request, w *restful.Resp
 	acct := register.Account()
 	user := register.User()
 
-	if err := v.mgr.CreateAccount(acct); err != nil {
+	if err := v.mgr.CreateAccount(ctx, acct); err != nil {
 		return v.WrapError(err, http.StatusInternalServerError)
 	}
 	user.AccountID = acct.ID
-	if err := v.mgr.CreateUser(user); err != nil {
+	if err := v.mgr.CreateUser(ctx, user); err != nil {
 		return v.WrapError(err, http.StatusInternalServerError)
 	}
 

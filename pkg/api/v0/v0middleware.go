@@ -9,6 +9,7 @@ import (
 	"gitlab.com/tonyhb/keepupdated/pkg/types"
 
 	"github.com/emicklei/go-restful"
+	"github.com/opentracing/opentracing-go"
 )
 
 // MustAuth is middleware which ensures that a user is authenticated before
@@ -41,12 +42,16 @@ func (v *V0) MustAuth(ctx context.Context, r *restful.Request, w *restful.Respon
 		}
 	}
 
-	user, err := v.mgr.UserByID(id)
+	// Create a child span from our parent
+	span, mustAuthCtx := opentracing.StartSpanFromContext(ctx, "mustAuth")
+	defer span.Finish()
+
+	user, err := v.mgr.UserByID(mustAuthCtx, id)
 	if err != nil {
 		return ctx, errors.ErrInvalidCredentials
 	}
 
-	acct, err := v.mgr.AccountByID(user.AccountID)
+	acct, err := v.mgr.AccountByID(mustAuthCtx, user.AccountID)
 	if err != nil {
 		return ctx, errors.ErrInvalidCredentials
 	}
@@ -59,7 +64,7 @@ func (v *V0) MustAuth(ctx context.Context, r *restful.Request, w *restful.Respon
 }
 
 func (v *V0) AccountIsActive(ctx context.Context, r *restful.Request, w *restful.Response) (context.Context, error) {
-	acct := ctx.Value("acct").(*types.Account)
+	acct := ctx.Value("acct").(types.Account)
 	if !acct.IsActive() {
 		return ctx, errors.ErrInactiveAccount
 	}

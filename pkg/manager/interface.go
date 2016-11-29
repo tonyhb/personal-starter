@@ -1,6 +1,8 @@
 package manager
 
 import (
+	"context"
+
 	"gitlab.com/tonyhb/keepupdated/pkg/types"
 )
 
@@ -10,13 +12,13 @@ type Manager interface {
 }
 
 type AccountManager interface {
-	CreateAccount(*types.Account) error
-	UpdateAccount(*types.Account) error
+	CreateAccount(context.Context, *types.Account) error
+	UpdateAccount(context.Context, *types.Account) error
 }
 
 type UserManager interface {
-	CreateUser(*types.User) error
-	UpdateUser(*types.User) error
-	UserByID(int) (*types.User, error)
-	UserByEmail(string) (*types.User, error)
+	CreateUser(context.Context, *types.User) error
+	UpdateUser(context.Context, *types.User) error
+	UserByID(context.Context, int) (*types.User, error)
+	UserByEmail(context.Context, string) (*types.User, error)
 }

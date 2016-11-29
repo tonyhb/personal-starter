@@ -1,6 +1,7 @@
 package inmemory
 
 import (
+	"context"
 	"time"
 
 	"gitlab.com/tonyhb/keepupdated/pkg/manager"
@@ -17,7 +18,7 @@ func NewAccountManager() *accountManager {
 	}
 }
 
-func (m *accountManager) CreateAccount(acct *types.Account) error {
+func (m *accountManager) CreateAccount(ctx context.Context, acct *types.Account) error {
 	acct.ID = len(m.Accounts)
 	acct.CreatedAt = time.Now()
 	acct.UpdatedAt = acct.CreatedAt
@@ -25,7 +26,7 @@ func (m *accountManager) CreateAccount(acct *types.Account) error {
 	return nil
 }
 
-func (m *accountManager) UpdateAccount(acct *types.Account) error {
+func (m *accountManager) UpdateAccount(ctx context.Context, acct *types.Account) error {
 	if _, ok := m.Accounts[acct.ID]; !ok {
 		return manager.ErrAccountNotFound
 	}
@@ -33,7 +34,7 @@ func (m *accountManager) UpdateAccount(acct *types.Account) error {
 	return nil
 }
 
-func (m *accountManager) AccountByID(id int) (*types.Account, error) {
+func (m *accountManager) AccountByID(ctx context.Context, id int) (*types.Account, error) {
 	if _, ok := m.Accounts[id]; !ok {
 		return nil, manager.ErrAccountNotFound
 	}
