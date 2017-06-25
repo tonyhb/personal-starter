@@ -3,8 +3,6 @@ import css from 'react-css-modules';
 import { Link } from 'react-router-dom';
 import styles from './base.css';
 
-console.log(styles);
-
 const Base = ({ children }) => (
   <div>
     <div styleName="styles.header">
