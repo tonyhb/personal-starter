@@ -89,6 +89,11 @@ const common = {
   ]
 };
 
+if (isProd) {
+  // Breaks HMR; only enable for smaller filesizes in prod
+  common.plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
+}
+
 module.exports = [
   Object.assign({}, common, {
     entry: {
