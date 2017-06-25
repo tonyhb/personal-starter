@@ -1,12 +1,19 @@
+// @flow
 import React from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { Loader } from "tectonic";
 
-import Base from "./scenes/base/base.js";
-import Dashboard from "./scenes/dashboard/dashboard.js";
+import Base from "./scenes/base/base";
+import Dashboard from "./scenes/dashboard/dashboard";
 
-const App = ({ store, manager }) =>
+// XXX proper types
+type Props = {
+  store: Object,
+  manager: Object,
+}
+
+const App = ({ store, manager }: Props) =>
   <Provider store={store}>
     <Loader manager={manager}>
       <Base>

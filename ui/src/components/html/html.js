@@ -1,7 +1,12 @@
+// @flow
 import React from "react";
 import Helmet from "react-helmet";
 
-const HTML = ({ children }) => {
+type Props = {|
+  children: React.Element<*>,
+|}
+
+const HTML = ({ children }: Props) => {
   const helmet = Helmet.renderStatic();
   const htmlAttrs = helmet.htmlAttributes.toComponent();
   const bodyAttrs = helmet.bodyAttributes.toComponent();

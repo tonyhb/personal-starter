@@ -6,7 +6,7 @@ import { StaticRouter } from "react-router";
 // node
 import path from "path";
 // components
-import HTML from "./components/html/html.js";
+import HTML from "./components/html/html";
 import App from "./app";
 import create from "./store";
 
@@ -33,5 +33,6 @@ app.use((req, res) => {
   res.send(`<!doctype html>${data}`);
 });
 
-console.log(`App listening on port ${config.PORT}`);
+/* global config */
+console.log(`App listening on port ${config.PORT}`); // eslint-disable-line no-console
 app.listen(config.PORT);

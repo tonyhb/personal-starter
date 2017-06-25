@@ -1,12 +1,16 @@
+// @flow
 import React from "react";
-import css from "react-css-modules";
 import { Link } from "react-router-dom";
-import styles from "./base.css";
+import "./base.css";
 
-const Base = ({ children }) =>
+type Props = {|
+  children: React.Element<*>,
+|}
+
+const Base = ({ children }: Props) =>
   <div>
-    <div styleName="styles.header">
-      <Link to="/" styleName="styles.dashboard">Dashboard</Link>
+    <div styleName="header">
+      <Link to="/" styleName="dashboard">Dashboard</Link>
     </div>
     {children}
   </div>;

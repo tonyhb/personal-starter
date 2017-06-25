@@ -7,6 +7,9 @@
     "react/prefer-stateless-function": [1, { "ignorePureComponents": true }],
     "jsx-quotes": 0,
     "no-debugger": 1,
+    "quotes": 0,
+    "react/jsx-wrap-multilines": 0,
+    "jsx-a11y/html-has-lang": 0,
   },
   "globals": {
 	"window": true,

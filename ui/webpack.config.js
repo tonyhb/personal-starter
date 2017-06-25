@@ -21,11 +21,22 @@ const common = {
     contentBase: './build/',
     publicPath: `https://${process.env.HOST}:8080/assets/`,
     historyApiFallback: true,
-    stats: { chunks: false },
+    stats: {
+      assets: false,
+      chunks: false,
+      colors: false,
+      modules: false, // hides JS and CSS info
+    },
   },
 
   module: {
     rules: [
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ["eslint-loader"],
+      },
       // JS should be the first loader for dev-server.js
       {
         test: /\.(js|jsx)$/,
