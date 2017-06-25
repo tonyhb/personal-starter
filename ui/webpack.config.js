@@ -5,9 +5,6 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
-// postcss
-const stylelint = require('stylelint');
-
 module.exports = {
   devtool: isProd ? 'hidden-source-map' : 'eval',
   context: __dirname,
@@ -19,48 +16,42 @@ module.exports = {
     publicPath: '/assets/',
     filename: 'app.js'
   },
+
   devServer: {
-    hot: true,
+    host: "0.0.0.0",
+    allowedHosts: [process.env.HOST],
     contentBase: './build/',
     publicPath: 'https://localhost:8080/assets/',
-    hot: true,
-    progress: true,
     historyApiFallback: true,
     stats: { chunks: false },
   },
+
   module: {
-    preLoaders: [
+    rules: [
       // JS should be the first loader for dev-server.js
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loaders: [
-          'eslint-loader',
-        ]
-      },
-    ],
-    loaders: [
-      // JS should be the first loader for dev-server.js
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loaders: [
+        use: [
           'babel-loader',
         ]
       },
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style',
-          loader: 'css?modules!postcss',
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader', options: { importLoaders: 1, modules: true } },
+            { loader: 'postcss-loader' },
+          ]
         })
       },
     ],
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
     modules: [
-      path.resolve('./client'),
+      path.resolve('./src'),
       'node_modules'
     ]
   },
@@ -78,7 +69,7 @@ module.exports = {
         NODE_ENV: JSON.stringify(nodeEnv),
       }
     }),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
@@ -88,23 +79,5 @@ module.exports = {
       },
       sourceMap: false
     }),
-  ],
-  postcss: () => [
-    stylelint({
-      "extends": "stylelint-config-standard",
-      "rules": {
-        "selector-pseudo-class-no-unknown": [true, { ignorePseudoClasses: ["global"] }],
-        "number-leading-zero": ["never"],
-      }
-    }),
-    require("postcss-reporter")({
-      clearMessages: true,
-    }),
-    require("postcss-nested"),
-    require('postcss-assets')({
-      loadPaths: ['./build/img', './build/svg'],
-    }),
-    require('postcss-svgo')(),
-    require('lost'),
-  ],
+  ]
 };

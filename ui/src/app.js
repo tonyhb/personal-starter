@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Match } from 'react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
 import {
   Loader,
 } from 'tectonic';
@@ -16,7 +16,7 @@ const App = () => (
     <Loader manager={ manager }>
       <BrowserRouter>
         <Base>
-          <Match exact pattern='/' component={ Dashboard } />
+          <Route exact pattern='/' component={ Dashboard } />
         </Base>
       </BrowserRouter>
     </Loader>

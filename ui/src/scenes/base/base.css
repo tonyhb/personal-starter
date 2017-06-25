@@ -12,12 +12,10 @@
     display: block;
     height: 100%;
     width: 195px;
-    background: inline('logo.svg') no-repeat 0 center;
-    background-size: 195px 20px;
     margin: 0 10px;
     text-indent: -99999rem;
-    opacity: 0.5;
-    transition: all 0.25s;
+    opacity: .5;
+    transition: all .25s;
 
     &:hover {
       opacity: 1;
