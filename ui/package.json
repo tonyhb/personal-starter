@@ -4,6 +4,7 @@
   "description": "frontend for keepupdated",
   "main": "index.js",
   "scripts": {
+    "prettier": "prettier --write -l --trailing-comma all src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dev-server.js"
   },

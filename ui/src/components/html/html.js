@@ -1,5 +1,5 @@
-import React from 'react';
-import Helmet from 'react-helmet';
+import React from "react";
+import Helmet from "react-helmet";
 
 const HTML = ({ children }) => {
   const helmet = Helmet.renderStatic();
@@ -12,11 +12,11 @@ const HTML = ({ children }) => {
         {helmet.title.toComponent()}
         {helmet.meta.toComponent()}
         {helmet.link.toComponent()}
-        <link rel='stylesheet' href='/assets/styles.css' />
+        <link rel="stylesheet" href="/assets/styles.css" />
       </head>
       <body {...bodyAttrs}>
-        <div id="app">{ children }</div>
-        <script src='/assets/client.js'></script>
+        <div id="app">{children}</div>
+        <script src="/assets/client.js" />
       </body>
     </html>
   );

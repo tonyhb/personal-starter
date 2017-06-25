@@ -1,19 +1,18 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Loader } from 'tectonic';
+import React from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter, Route } from "react-router-dom";
+import { Loader } from "tectonic";
 
-import Base from './scenes/base/base.js';
-import Dashboard from './scenes/dashboard/dashboard.js';
+import Base from "./scenes/base/base.js";
+import Dashboard from "./scenes/dashboard/dashboard.js";
 
-const App = ({ store, manager }) => (
-  <Provider store={ store }>
-    <Loader manager={ manager }>
+const App = ({ store, manager }) =>
+  <Provider store={store}>
+    <Loader manager={manager}>
       <Base>
-        <Route exact path='/' component={ Dashboard } />
+        <Route exact path="/" component={Dashboard} />
       </Base>
     </Loader>
-  </Provider>
-);
+  </Provider>;
 
 export default App;
