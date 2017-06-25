@@ -3,18 +3,15 @@ import css from 'react-css-modules';
 import { Link } from 'react-router-dom';
 import styles from './base.css';
 
-const UnstyledBase = ({ children }) => (
+console.log(styles);
+
+const Base = ({ children }) => (
   <div>
-    <div styleName="header">
-      <Link to='/' className='dashboard'>Dashboard</Link>
+    <div styleName="styles.header">
+      <Link to='/' styleName='styles.dashboard'>Dashboard</Link>
     </div>
     { children }
   </div>
 );
 
-UnstyledBase.propTypes = {
-  children: React.PropTypes.node,
-};
-
-export default css(styles)(UnstyledBase);
-export { UnstyledBase };
+export default Base;

@@ -29,6 +29,7 @@
     "postcss": "6.0.2",
     "postcss-assets": "4.1.0",
     "postcss-loader": "2.0.6",
+    "postcss-modules": "^0.8.0",
     "postcss-nested": "2.0.2",
     "postcss-reporter": "4.0.0",
     "postcss-svgo": "2.1.6",
@@ -41,6 +42,7 @@
     "webpack-dev-server": "2.5.0"
   },
   "dependencies": {
+    "babel-plugin-react-css-modules": "^3.0.0",
     "react": "15.6.1",
     "react-css-modules": "4.3.0",
     "react-dom": "15.6.1",

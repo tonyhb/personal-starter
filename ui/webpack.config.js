@@ -22,7 +22,7 @@ module.exports = {
     host: "0.0.0.0",
     allowedHosts: [process.env.HOST],
     contentBase: './build/',
-    publicPath: 'https://localhost:8080/assets/',
+    publicPath: `https://${process.env.HOST}:8080/assets/`,
     historyApiFallback: true,
     stats: { chunks: false },
   },
@@ -42,7 +42,14 @@ module.exports = {
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            { loader: 'css-loader', options: { importLoaders: 1, modules: true } },
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                modules: true,
+                localIdentName: '[local]', // injected into extracttext
+              },
+            },
             { loader: 'postcss-loader' },
           ]
         })

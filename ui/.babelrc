@@ -6,6 +6,9 @@
   ],
   "plugins": [
     "react-hot-loader/babel",
+    ["react-css-modules", {
+      generateScopedName: '[name]__[local]--[hash:base64:5]', // injected into react classnames
+    }],
     "transform-class-properties",
     "transform-decorators-legacy",
   ]
