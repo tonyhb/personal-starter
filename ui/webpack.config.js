@@ -18,6 +18,7 @@ module.exports = {
   },
 
   devServer: {
+    hot: true,
     host: "0.0.0.0",
     allowedHosts: [process.env.HOST],
     contentBase: './build/',
@@ -79,5 +80,6 @@ module.exports = {
       },
       sourceMap: false
     }),
+    new webpack.NamedModulesPlugin(),
   ]
 };
