@@ -5,16 +5,13 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
-module.exports = {
+const common = {
   devtool: isProd ? 'hidden-source-map' : 'eval',
   context: __dirname,
-  entry: {
-    app: ['./src/index.js'],
-  },
   output: {
     path: path.join(__dirname, './build'),
     publicPath: '/assets/',
-    filename: 'app.js'
+    filename: '[name].js',
   },
 
   devServer: {
@@ -73,15 +70,16 @@ module.exports = {
       debug: false,
     }),
     new webpack.DefinePlugin({
+      config: {
+        PORT: process.env.PORT || 3000,
+      },
       'process.env': {
         NODE_ENV: JSON.stringify(nodeEnv),
       }
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
+      compress: isProd,
       output: {
         comments: false
       },
@@ -90,3 +88,29 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
   ]
 };
+
+module.exports = [
+  Object.assign({}, common, {
+    entry: {
+      client: ['./src/entry.client.js'],
+    },
+  }),
+  Object.assign({}, common, {
+    entry: {
+      server: ['./src/entry.server.js'],
+    },
+    target: 'node',
+    node: {
+      __dirname: false,
+      __filename: false,
+    },
+    plugins: common.plugins.slice().concat([
+      // debug < 2.6 references these which causes an error with SSR
+      new webpack.DefinePlugin({
+        window: {},
+        navigator: false,
+        document: false,
+      }),
+    ]),
+  }),
+];
