@@ -36,7 +36,7 @@ app.use((req, res) => {
     </HTML>
   ));
 
-  res.send(data);
+  res.send(`<!doctype html>${data}`);
 });
 
 console.log(`App listening on port ${config.PORT}`);

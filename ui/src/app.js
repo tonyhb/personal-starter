@@ -10,7 +10,7 @@ const App = ({ store, manager }) => (
   <Provider store={ store }>
     <Loader manager={ manager }>
       <Base>
-        <Route exact pattern='/' component={ Dashboard } />
+        <Route exact path='/' component={ Dashboard } />
       </Base>
     </Loader>
   </Provider>

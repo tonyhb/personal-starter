@@ -15,7 +15,7 @@ const HTML = ({ children }) => {
         <link rel='stylesheet' href='/assets/styles.css' />
       </head>
       <body {...bodyAttrs}>
-        <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
+        <div id="app">{ children }</div>
         <script src='/assets/client.js'></script>
       </body>
     </html>
