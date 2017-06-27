@@ -14,6 +14,12 @@ const common = {
     filename: '[name].js',
   },
 
+  // devServer allows us to run webpack-dev-server with real, in place hot
+  // module reloading.
+  //
+  // HOST env variable:
+  // If you're running inside a virtual machine set the HOST environment
+  // variable to the IP of your VM.
   devServer: {
     hot: true,
     host: "0.0.0.0",
@@ -31,6 +37,7 @@ const common = {
 
   module: {
     rules: [
+      // preloader so we bail fast with syntax errors
       {
         enforce: "pre",
         test: /\.js$/,
@@ -45,6 +52,7 @@ const common = {
           'babel-loader',
         ]
       },
+      // extract CSS as a separate file for cacheability.
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
@@ -55,7 +63,7 @@ const common = {
               options: {
                 importLoaders: 1,
                 modules: true,
-                localIdentName: '[local]', // injected into extracttext
+                localIdentName: '[local]', // injected into extracttext; given from postcss
               },
             },
             { loader: 'postcss-loader' },
@@ -67,6 +75,7 @@ const common = {
   resolve: {
     extensions: ['.js', '.jsx'],
     modules: [
+      // everything in `src` should overwrite node_modules repos
       path.resolve('./src'),
       'node_modules'
     ]
@@ -96,6 +105,7 @@ const common = {
       },
       sourceMap: false
     }),
+    // name modules (vs. numbers) for better HMR logs
     new webpack.NamedModulesPlugin(),
   ]
 };
@@ -105,6 +115,7 @@ if (isProd) {
   common.plugins.push(new webpack.optimize.ModuleConcatenationPlugin());
 }
 
+// export two webpack configs; one for the client and one for the server.
 module.exports = [
   Object.assign({}, common, {
     entry: {
@@ -117,6 +128,8 @@ module.exports = [
     },
     target: 'node',
     node: {
+      // prevent __dirname from rewriting to '/' for assets:
+      // https://github.com/webpack/webpack/issues/1599
       __dirname: false,
       __filename: false,
     },
@@ -130,3 +143,5 @@ module.exports = [
     ]),
   }),
 ];
+
+
