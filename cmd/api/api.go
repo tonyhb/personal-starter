@@ -8,7 +8,6 @@ import (
 	"gitlab.com/tonyhb/keepupdated/pkg/manager/inmemory"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/opentracing/opentracing-go"
 )
 
 const (
@@ -27,7 +26,7 @@ func init() {
 	if port = os.Getenv("PORT"); port == "" {
 		port = defaultPort
 	}
-	if logLevel = os.Getenv("LOG_LEVEL"); logLevel != "" {
+	if logLevel = os.Getenv("LOG_LEVEL"); logLevel == "" {
 		logLevel = defaultLogLevel
 	}
 }
