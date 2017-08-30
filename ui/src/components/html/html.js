@@ -6,6 +6,7 @@ type Props = {|
   children: React.Element<*>,
 |}
 
+// TODO: Store dehydration
 const HTML = ({ children }: Props) => {
   const helmet = Helmet.renderStatic();
   const htmlAttrs = helmet.htmlAttributes.toComponent();
